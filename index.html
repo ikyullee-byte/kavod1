@@ -1,0 +1,248 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>L'Atelier de Pain - 정통 프랑스 베이커리</title>
+    
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    
+    <style>
+        /* 기본 설정 */
+        :root {
+            --bg-color: #F9F8F6; /* 따뜻한 크림색 배경 */
+            --text-color: #2C2C2C; /* 진한 차콜색 텍스트 */
+            --accent-color: #C19A6B; /* 구운 빵의 골드 브라운 포인트 */
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        h1, h2, h3, .logo {
+            font-family: 'Playfair Display', serif;
+        }
+
+        /* 내비게이션 바 */
+        nav {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 2rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            background-color: rgba(249, 248, 246, 0.95);
+            backdrop-filter: blur(5px);
+            z-index: 1000;
+            transition: all 0.3s ease;
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: 700;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+        }
+
+        .nav-links {
+            list-style: none;
+            display: flex;
+            gap: 2rem;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-color);
+            font-weight: 500;
+            font-size: 0.9rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            transition: color 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--accent-color);
+        }
+
+        /* 메인 히어로 섹션 */
+        .hero {
+            height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 0 5%;
+            background: linear-gradient(rgba(249,248,246,0.7), rgba(249,248,246,0.3)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+        }
+
+        .hero h1 {
+            font-size: 4rem;
+            font-style: italic;
+            margin-bottom: 1rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards 0.3s;
+        }
+
+        .hero p {
+            font-size: 1.2rem;
+            font-weight: 300;
+            margin-bottom: 2rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards 0.6s;
+        }
+
+        .btn {
+            padding: 1rem 2.5rem;
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            text-decoration: none;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            font-size: 0.9rem;
+            transition: all 0.3s ease;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 1s forwards 0.9s;
+        }
+
+        .btn:hover {
+            background-color: var(--accent-color);
+        }
+
+        /* 베스트셀러 섹션 */
+        .products {
+            padding: 8rem 5%;
+            text-align: center;
+        }
+
+        .products h2 {
+            font-size: 2.5rem;
+            margin-bottom: 4rem;
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 3rem;
+        }
+
+        .card {
+            text-align: left;
+            cursor: pointer;
+        }
+
+        .card-img {
+            width: 100%;
+            height: 400px;
+            object-fit: cover;
+            margin-bottom: 1.5rem;
+            transition: transform 0.5s ease;
+        }
+
+        .card:hover .card-img {
+            transform: scale(1.03);
+        }
+
+        .card h3 {
+            font-size: 1.5rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .card p {
+            font-weight: 300;
+            color: #666;
+        }
+
+        /* 푸터 */
+        footer {
+            background-color: var(--text-color);
+            color: var(--bg-color);
+            text-align: center;
+            padding: 4rem 5%;
+        }
+
+        footer .logo {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+        }
+
+        /* 애니메이션 */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <nav id="navbar">
+        <div class="logo">L'Atelier</div>
+        <ul class="nav-links">
+            <li><a href="#about">About</a></li>
+            <li><a href="#menu">Menu</a></li>
+            <li><a href="#visit">Visit</a></li>
+        </ul>
+    </nav>
+
+    <header class="hero">
+        <h1>L'Art de la Boulangerie</h1>
+        <p>파리의 아침을 깨우는 향기, 정통 프랑스 밀가루와 천연 발효종으로 매일 구워냅니다.</p>
+        <a href="#menu" class="btn">Discover Our Bread</a>
+    </header>
+
+    <section id="menu" class="products">
+        <h2>Signature Breads</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Baguette" class="card-img">
+                <h3>Baguette Tradition</h3>
+                <p>겉은 바삭하고 속은 쫄깃한, 정통 프랑스 바게트</p>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1623366302587-bca8ebaf69ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Croissant" class="card-img">
+                <h3>Croissant au Beurre</h3>
+                <p>프랑스산 AOP 버터의 풍미가 가득한 결이 살아있는 크루아상</p>
+            </div>
+            <div class="card">
+                <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pain au Chocolat" class="card-img">
+                <h3>Pain au Chocolat</h3>
+                <p>발로나 초콜릿 스틱이 들어간 달콤하고 바삭한 페이스트리</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="logo">L'Atelier</div>
+        <p>123 Bakery Street, Seoul | Tue - Sun 08:00 - 19:00</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.6;">© 2026 L'Atelier de Pain. All rights reserved.</p>
+    </footer>
+
+    <script>
+        // 스크롤 시 내비게이션 바에 그림자 효과 추가
+        window.addEventListener('scroll', () => {
+            const nav = document.getElementById('navbar');
+            if (window.scrollY > 50) {
+                nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+            } else {
+                nav.style.boxShadow = 'none';
+            }
+        });
+    </script>
+</body>
+</html>
