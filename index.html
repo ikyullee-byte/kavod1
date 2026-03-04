@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>L'Atelier de Pain - 정통 프랑스 베이커리</title>
+    <title>Kavod Bakery Cafe - 정통 프랑스 베이커리</title>
     
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     
     <style>
-        /* 기본 설정 */
+        /* 로고 이미지 톤에 맞춘 컬러 설정 */
         :root {
-            --bg-color: #F9F8F6; /* 따뜻한 크림색 배경 */
-            --text-color: #2C2C2C; /* 진한 차콜색 텍스트 */
-            --accent-color: #C19A6B; /* 구운 빵의 골드 브라운 포인트 */
+            --bg-color: #F6EBE1; /* 로고 배경과 유사한 따뜻한 베이지 */
+            --text-color: #582C27; /* 로고 텍스트와 유사한 딥 브라운 */
+            --accent-color: #8C4A3E; /* 호버 시 약간 밝은 브라운 포인트 */
         }
 
         * {
@@ -29,7 +29,7 @@
             overflow-x: hidden;
         }
 
-        h1, h2, h3, .logo {
+        h1, h2, h3 {
             font-family: 'Playfair Display', serif;
         }
 
@@ -38,21 +38,20 @@
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 2rem 5%;
+            padding: 1.5rem 5%;
             position: fixed;
             width: 100%;
             top: 0;
-            background-color: rgba(249, 248, 246, 0.95);
+            background-color: rgba(246, 235, 225, 0.95); /* 배경색에 맞춘 반투명 */
             backdrop-filter: blur(5px);
             z-index: 1000;
             transition: all 0.3s ease;
         }
 
-        .logo {
-            font-size: 1.8rem;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-transform: uppercase;
+        /* 추가된 로고 이미지 스타일 */
+        .logo-img {
+            height: 50px; /* 로고 크기 조절 (원하는 크기로 변경 가능) */
+            object-fit: contain;
         }
 
         .nav-links {
@@ -65,7 +64,7 @@
             text-decoration: none;
             color: var(--text-color);
             font-weight: 500;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             text-transform: uppercase;
             letter-spacing: 1px;
             transition: color 0.3s ease;
@@ -84,7 +83,8 @@
             align-items: center;
             text-align: center;
             padding: 0 5%;
-            background: linear-gradient(rgba(249,248,246,0.7), rgba(249,248,246,0.3)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
+            /* 배경 이미지 위에 덮는 색상도 톤에 맞게 수정 */
+            background: linear-gradient(rgba(246, 235, 225, 0.6), rgba(246, 235, 225, 0.2)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
         }
 
         .hero h1 {
@@ -164,7 +164,7 @@
 
         .card p {
             font-weight: 300;
-            color: #666;
+            opacity: 0.8;
         }
 
         /* 푸터 */
@@ -175,9 +175,11 @@
             padding: 4rem 5%;
         }
 
-        footer .logo {
-            font-size: 1.5rem;
+        footer .footer-logo {
+            height: 40px;
             margin-bottom: 1rem;
+            /* 푸터에서는 배경이 어두우므로 이미지를 밝게 반전시키거나 세피아톤 적용 (필요시) */
+            /* filter: invert(1) brightness(2); */
         }
 
         /* 애니메이션 */
@@ -192,7 +194,7 @@
 <body>
 
     <nav id="navbar">
-        <div class="logo">L'Atelier</div>
+        <a href="#"><img src="IMG_3614.jpg" alt="Kavod Bakery Cafe" class="logo-img"></a>
         <ul class="nav-links">
             <li><a href="#about">About</a></li>
             <li><a href="#menu">Menu</a></li>
@@ -201,7 +203,7 @@
     </nav>
 
     <header class="hero">
-        <h1>L'Art de la Boulangerie</h1>
+        <h1>Kavod</h1>
         <p>파리의 아침을 깨우는 향기, 정통 프랑스 밀가루와 천연 발효종으로 매일 구워냅니다.</p>
         <a href="#menu" class="btn">Discover Our Bread</a>
     </header>
@@ -228,9 +230,9 @@
     </section>
 
     <footer>
-        <div class="logo">L'Atelier</div>
+        <img src="IMG_3614.jpg" alt="Kavod Bakery Cafe" class="footer-logo">
         <p>123 Bakery Street, Seoul | Tue - Sun 08:00 - 19:00</p>
-        <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.6;">© 2026 L'Atelier de Pain. All rights reserved.</p>
+        <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.6;">© 2026 Kavod Bakery Cafe. All rights reserved.</p>
     </footer>
 
     <script>
@@ -238,7 +240,7 @@
         window.addEventListener('scroll', () => {
             const nav = document.getElementById('navbar');
             if (window.scrollY > 50) {
-                nav.style.boxShadow = '0 2px 10px rgba(0,0,0,0.05)';
+                nav.style.boxShadow = '0 2px 10px rgba(88, 44, 39, 0.1)';
             } else {
                 nav.style.boxShadow = 'none';
             }
