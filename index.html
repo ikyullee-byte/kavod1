@@ -1,250 +1,63 @@
-<!DOCTYPE html>
-<html lang="ko">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Kavod Bakery Cafe - 정통 프랑스 베이커리</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;700&family=Playfair+Display:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
-    
-    <style>
-        /* 로고 이미지 톤에 맞춘 컬러 설정 */
-        :root {
-            --bg-color: #F6EBE1; /* 로고 배경과 유사한 따뜻한 베이지 */
-            --text-color: #582C27; /* 로고 텍스트와 유사한 딥 브라운 */
-            --accent-color: #8C4A3E; /* 호버 시 약간 밝은 브라운 포인트 */
-        }
+# ☕ 카보드(Kaboard) 통합 매뉴얼 및 레시피
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+---
 
-        body {
-            font-family: 'Noto Sans KR', sans-serif;
-            background-color: var(--bg-color);
-            color: var(--text-color);
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
+## ✅ 1. 일일 오픈/마감 체크리스트
+> 바쁜 시간대나 봉사자가 교대할 때 누락되는 일이 없도록 확인하는 용도입니다.
 
-        h1, h2, h3 {
-            font-family: 'Playfair Display', serif;
-        }
+**☀️ 오픈 (Open)**
+- [ ] 커피 머신 켜기 및 예열 확인
+- [ ] 제빙기 얼음 양 확인 및 전용 스쿱 비치
+- [ ] 시럽, 연유, 소스류 펌프 작동 및 잔량 확인
+- [ ] 쇼케이스 및 냉장고 온도 정상 작동 확인 (우유, 생크림 등)
+- [ ] 레몬청, 자몽청, 퓨레 등 냉장 재료 상태 확인
 
-        /* 내비게이션 바 */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            background-color: rgba(246, 235, 225, 0.95); /* 배경색에 맞춘 반투명 */
-            backdrop-filter: blur(5px);
-            z-index: 1000;
-            transition: all 0.3s ease;
-        }
+**🌙 마감 (Close)**
+- [ ] 커피 머신 그룹헤드 청소 및 백플러싱 (마감 약품 사용)
+- [ ] 그라인더 주변 원두 가루 청소
+- [ ] 사용한 집기류(샷글라스, 스팀피처, 스푼 등) 세척 및 건조
+- [ ] 남은 우유, 생크림 등 냉장 보관 및 유통기한 라벨링 확인
+- [ ] 쓰레기통 비우기 및 주변 정리
 
-        /* 추가된 로고 이미지 스타일 */
-        .logo-img {
-            height: 50px; /* 로고 크기 조절 (원하는 크기로 변경 가능) */
-            object-fit: contain;
-        }
+---
 
-        .nav-links {
-            list-style: none;
-            display: flex;
-            gap: 2rem;
-        }
+## 💡 2. 빠른 계량 팁 (시럽 펌프 변환)
+> 저울 사용이 어려울 때를 대비한 기준표입니다. (사용하시는 펌프 규격에 따라 다를 수 있으니 한 번 테스트 후 수정해서 쓰세요!)
 
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-color);
-            font-weight: 500;
-            font-size: 0.95rem;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            transition: color 0.3s ease;
-        }
+* **일반 시럽 1펌프** = 약 10g ~ 15g
+* **바닐라 시럽 30g** = 약 2~3펌프
+* **연유 5g / 10g** = 티스푼 1스푼 / 2스푼
+* **레몬즙 10ml** = 1펌프 (또는 전용 스퀴저 기준 1번)
 
-        .nav-links a:hover {
-            color: var(--accent-color);
-        }
+---
 
-        /* 메인 히어로 섹션 */
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 0 5%;
-            /* 배경 이미지 위에 덮는 색상도 톤에 맞게 수정 */
-            background: linear-gradient(rgba(246, 235, 225, 0.6), rgba(246, 235, 225, 0.2)), url('https://images.unsplash.com/photo-1509440159596-0249088772ff?ixlib=rb-4.0.3&auto=format&fit=crop&w=1920&q=80') center/cover no-repeat;
-        }
+## 📖 3. 카보드 레시피
 
-        .hero h1 {
-            font-size: 4rem;
-            font-style: italic;
-            margin-bottom: 1rem;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 1s forwards 0.3s;
-        }
+### ☕ 커피 (COFFEE)
+| 메뉴명 | 🔴 핫 (HOT) | 🔵 아이스 (ICED) |
+| :--- | :--- | :--- |
+| **아메리카노** | **에스프레소 40g** + 뜨거운 물 200ml | **에스프레소 40g** + 얼음 150g + 차가운 물 140ml |
+| **카페라떼** | **에스프레소 40g** + 우유 180ml | **에스프레소 40g** + 얼음 150g + 우유 160ml |
+| **바닐라라떼** | **에스프레소 40g** + 바닐라시럽 30g + 연유 5g + 우유 180ml | **에스프레소 40g** + 바닐라시럽 30g + 연유 5g + 얼음 150g + 우유 150ml |
 
-        .hero p {
-            font-size: 1.2rem;
-            font-weight: 300;
-            margin-bottom: 2rem;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 1s forwards 0.6s;
-        }
+### ✨ 시그니처 (SIGNATURE)
+| 메뉴명 | 제조 순서 및 방법 (ONLY ICE) |
+| :--- | :--- |
+| **엑설런트 라떼** | 1. **베이스:** 우유 110ml + 바닐라시럽 15g + 연유 5g<br>2. **토핑:** 엑설런트 아이스크림 1개 올리기<br>3. **샷 추가:** 아이스크림 위로 **에스프레소 40g** 붓기<br>4. **마무리:** 숟가락으로 밑부분 살짝 섞기 |
+| **카보드 크림 라떼** | 1. **베이스:** 우유 110ml + 연유 10g + 버터스카치 섞기<br>2. **크림:** 생크림 25g + 연유 20g (단단하게 휘핑) 👉 그 위에 액상 생크림 25g 붓고 잘 섞기<br>3. **샷 추출:** 원두 20g (강하게 탬핑) 👉 잔 돌려가며 15ml 짧고 진하게 추출하여 올리기 |
 
-        .btn {
-            padding: 1rem 2.5rem;
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            text-decoration: none;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            font-size: 0.9rem;
-            transition: all 0.3s ease;
-            opacity: 0;
-            transform: translateY(30px);
-            animation: fadeUp 1s forwards 0.9s;
-        }
+### 🍹 에이드 & 티 (ADE & TEA)
+| 메뉴명 | 제조 순서 및 방법 |
+| :--- | :--- |
+| **아이스 자몽에이드** | 잔에 얼음 100g + 자몽 농축액 40ml 👉 자몽 슬라이스 1개 잔 옆면에 깔기 👉 탄산수 1개 + 나머지 얼음 채우기 👉 맨 위에 자몽 퓨레 60g 올리기 |
+| **핫 자몽에이드(티)**| 자몽 농축액 30ml + 자몽 퓨레 60g + 자몽 슬라이스 1개 + 뜨거운 물 220ml |
+| **아이스 레몬에이드** | 레몬청 40g + 레몬즙 10ml + 시럽 10g + (탄산수 / 얼음 적당량) |
+| **핫 레몬에이드(티)**| 레몬청 30g + 레몬즙 10ml + 시럽 10g + (뜨거운 물 200~220ml) |
+| **각종 차 (TEA)** | 뜨거운 물 200ml + 티백 1개<br>🗣️ **"2분 있다가 티백을 빼고 드세요"** 안내 필수! |
 
-        .btn:hover {
-            background-color: var(--accent-color);
-        }
+---
 
-        /* 베스트셀러 섹션 */
-        .products {
-            padding: 8rem 5%;
-            text-align: center;
-        }
-
-        .products h2 {
-            font-size: 2.5rem;
-            margin-bottom: 4rem;
-        }
-
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-        }
-
-        .card {
-            text-align: left;
-            cursor: pointer;
-        }
-
-        .card-img {
-            width: 100%;
-            height: 400px;
-            object-fit: cover;
-            margin-bottom: 1.5rem;
-            transition: transform 0.5s ease;
-        }
-
-        .card:hover .card-img {
-            transform: scale(1.03);
-        }
-
-        .card h3 {
-            font-size: 1.5rem;
-            margin-bottom: 0.5rem;
-        }
-
-        .card p {
-            font-weight: 300;
-            opacity: 0.8;
-        }
-
-        /* 푸터 */
-        footer {
-            background-color: var(--text-color);
-            color: var(--bg-color);
-            text-align: center;
-            padding: 4rem 5%;
-        }
-
-        footer .footer-logo {
-            height: 40px;
-            margin-bottom: 1rem;
-            /* 푸터에서는 배경이 어두우므로 이미지를 밝게 반전시키거나 세피아톤 적용 (필요시) */
-            /* filter: invert(1) brightness(2); */
-        }
-
-        /* 애니메이션 */
-        @keyframes fadeUp {
-            to {
-                opacity: 1;
-                transform: translateY(0);
-            }
-        }
-    </style>
-</head>
-<body>
-
-    <nav id="navbar">
-        <a href="#"><img src="IMG_3614.jpg" alt="Kavod Bakery Cafe" class="logo-img"></a>
-        <ul class="nav-links">
-            <li><a href="#about">About</a></li>
-            <li><a href="#menu">Menu</a></li>
-            <li><a href="#visit">Visit</a></li>
-        </ul>
-    </nav>
-
-    <header class="hero">
-        <h1>Kavod</h1>
-        <p>파리의 아침을 깨우는 향기, 정통 프랑스 밀가루와 천연 발효종으로 매일 구워냅니다.</p>
-        <a href="#menu" class="btn">Discover Our Bread</a>
-    </header>
-
-    <section id="menu" class="products">
-        <h2>Signature Breads</h2>
-        <div class="grid">
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1549931319-a545dcf3bc73?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Baguette" class="card-img">
-                <h3>Baguette Tradition</h3>
-                <p>겉은 바삭하고 속은 쫄깃한, 정통 프랑스 바게트</p>
-            </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1623366302587-bca8ebaf69ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Croissant" class="card-img">
-                <h3>Croissant au Beurre</h3>
-                <p>프랑스산 AOP 버터의 풍미가 가득한 결이 살아있는 크루아상</p>
-            </div>
-            <div class="card">
-                <img src="https://images.unsplash.com/photo-1608198093002-ad4e005484ec?ixlib=rb-4.0.3&auto=format&fit=crop&w=800&q=80" alt="Pain au Chocolat" class="card-img">
-                <h3>Pain au Chocolat</h3>
-                <p>발로나 초콜릿 스틱이 들어간 달콤하고 바삭한 페이스트리</p>
-            </div>
-        </div>
-    </section>
-
-    <footer>
-        <img src="IMG_3614.jpg" alt="Kavod Bakery Cafe" class="footer-logo">
-        <p>123 Bakery Street, Seoul | Tue - Sun 08:00 - 19:00</p>
-        <p style="margin-top: 1rem; font-size: 0.8rem; opacity: 0.6;">© 2026 Kavod Bakery Cafe. All rights reserved.</p>
-    </footer>
-
-    <script>
-        // 스크롤 시 내비게이션 바에 그림자 효과 추가
-        window.addEventListener('scroll', () => {
-            const nav = document.getElementById('navbar');
-            if (window.scrollY > 50) {
-                nav.style.boxShadow = '0 2px 10px rgba(88, 44, 39, 0.1)';
-            } else {
-                nav.style.boxShadow = 'none';
-            }
-        });
-    </script>
-</body>
-</html>
+## ⚠️ 4. 고객 응대 및 알레르기 주의사항
+* **유제품 알레르기/유당불내증:** 모든 라떼류 및 크림 라떼에는 우유 및 생크림이 들어갑니다. (필요시 "연하게" 또는 "우유 적게" 등 고객 요청사항 확인)
+* **얼음 양 조절 요청 시:** 얼음을 적게 넣을 경우 음료량이 적어 보일 수 있음을 미리 안내합니다.
+* **디카페인 여부:** 현재 메뉴판 기준 디카페인 원두 변경 가능 여부를 숙지해 둡니다.
