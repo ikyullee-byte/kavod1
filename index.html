@@ -10,121 +10,160 @@
             --text-color: #3e2723;
             --card-bg: #ffffff;
             --point-color: #8d6e63;
-            --hot-color: #d32f2f;
-            --ice-color: #1976d2;
-            --border-color: #e0e0e0;
+            --point-hover: #795548;
+            --hot-color: #e53935;
+            --ice-color: #1e88e5;
+            --border-color: #eeeeee;
         }
         body {
             font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
             background-color: var(--bg-color);
             color: var(--text-color);
             line-height: 1.6;
-            padding: 20px;
+            padding: 20px 15px;
             margin: 0;
-            max-width: 1200px;
+            max-width: 800px;
             margin-left: auto;
             margin-right: auto;
         }
         .header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 25px;
         }
         .header h1 {
-            font-size: 2rem;
-            margin-bottom: 10px;
+            font-size: 1.8rem;
+            margin-bottom: 5px;
             color: #4e342e;
         }
-        /* 검색창 스타일 */
+        
+        /* 🔍 검색창 스타일 */
         .search-container {
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
         }
         .search-container input {
-            padding: 12px 20px;
-            width: 80%;
+            padding: 14px 20px;
+            width: 90%;
             max-width: 400px;
-            border: 2px solid var(--point-color);
-            border-radius: 25px;
+            border: 2px solid var(--border-color);
+            border-radius: 30px;
             font-size: 1rem;
             outline: none;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.02);
+            transition: border-color 0.3s;
         }
-        /* 탭 버튼 스타일 */
+        .search-container input:focus {
+            border-color: var(--point-color);
+        }
+
+        /* 📱 직관적인 앱 스타일 탭 */
         .tab-container {
-            display: flex;
-            justify-content: center;
-            flex-wrap: wrap;
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
             gap: 10px;
             margin-bottom: 30px;
         }
         .tab-button {
-            background-color: transparent;
-            border: 2px solid var(--point-color);
-            color: var(--point-color);
-            padding: 10px 20px;
-            border-radius: 25px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            background-color: #ffffff;
+            border: 2px solid var(--border-color);
+            color: #795548;
+            padding: 15px 5px;
+            border-radius: 16px;
             cursor: pointer;
-            font-weight: bold;
-            transition: all 0.3s;
+            font-weight: 700;
+            font-size: 0.85rem;
+            transition: all 0.2s ease-in-out;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.02);
         }
-        .tab-button.active, .tab-button:hover {
+        .tab-icon {
+            font-size: 1.8rem;
+            margin-bottom: 5px;
+        }
+        .tab-button:hover {
+            border-color: var(--point-color);
+        }
+        .tab-button.active {
             background-color: var(--point-color);
-            color: white;
+            border-color: var(--point-color);
+            color: #ffffff;
+            box-shadow: 0 6px 12px rgba(141, 110, 99, 0.3);
+            transform: translateY(-4px); /* 위로 살짝 떠오르는 효과 */
         }
-        /* 탭 콘텐츠 및 그리드 */
+
+        /* 탭 콘텐츠 및 레시피 카드 */
         .tab-content {
             display: none;
-            animation: fadeIn 0.5s;
+            animation: fadeIn 0.4s ease-in-out;
         }
         .tab-content.active {
             display: block;
         }
         @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
         }
+        
         .recipe-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-            gap: 20px;
+            grid-template-columns: 1fr;
+            gap: 15px;
         }
         .recipe-card {
             background-color: var(--card-bg);
-            border-radius: 12px;
-            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            border-radius: 16px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.04);
             padding: 25px;
+            border: 1px solid var(--border-color);
         }
         .recipe-card h3 {
             margin-top: 0;
-            font-size: 1.25rem;
-            border-bottom: 1px dashed var(--border-color);
-            padding-bottom: 10px;
+            font-size: 1.2rem;
+            border-bottom: 2px solid var(--bg-color);
+            padding-bottom: 12px;
+            margin-bottom: 15px;
+            color: #3e2723;
         }
+        
+        /* 온도 태그 스타일 */
         .tag {
             display: inline-block;
-            padding: 2px 8px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            font-weight: bold;
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.75rem;
+            font-weight: 800;
             color: white;
             margin-bottom: 8px;
+            margin-right: 5px;
         }
         .tag.hot { background-color: var(--hot-color); }
         .tag.ice { background-color: var(--ice-color); }
-        .recipe-step { margin-bottom: 15px; }
-        ul, ol { padding-left: 20px; margin: 10px 0; }
         
-        /* 체크리스트 스타일 */
+        .recipe-step { margin-bottom: 20px; }
+        .recipe-step:last-child { margin-bottom: 0; }
+        .recipe-step div { background: #f9f9f9; padding: 12px; border-radius: 8px; font-size: 0.95rem; }
+        ul, ol { padding-left: 20px; margin: 10px 0; font-size: 0.95rem; }
+        li { margin-bottom: 6px; }
+
+        /* 체크리스트 */
         .checklist-item {
             display: flex;
             align-items: center;
-            margin-bottom: 10px;
-            font-size: 1.05rem;
+            background: #f9f9f9;
+            padding: 12px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+            cursor: pointer;
         }
         .checklist-item input[type="checkbox"] {
-            margin-right: 10px;
+            margin-right: 12px;
             width: 20px;
             height: 20px;
-            cursor: pointer;
+            accent-color: var(--point-color);
         }
         .checklist-item input[type="checkbox"]:checked + span {
             text-decoration: line-through;
@@ -133,27 +172,47 @@
         .notice {
             background-color: #fff3e0;
             padding: 15px;
-            border-radius: 8px;
-            border-left: 4px solid #ff9800;
+            border-radius: 12px;
+            border-left: 5px solid #ff9800;
             margin-top: 20px;
+            font-size: 0.9rem;
+        }
+
+        /* 모바일 최적화 (화면이 아주 작을 때 탭을 2줄로 배치) */
+        @media (max-width: 480px) {
+            .tab-container {
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
     </style>
 </head>
 <body>
 
     <div class="header">
-        <h1>☕ 카보드(Kaboard) 매뉴얼</h1>
+        <h1>☕ 카보드 매뉴얼</h1>
     </div>
 
     <div class="search-container">
-        <input type="text" id="searchInput" onkeyup="searchRecipe()" placeholder="🔍 메뉴 이름을 검색하세요 (예: 자몽)">
+        <input type="text" id="searchInput" onkeyup="searchRecipe()" placeholder="🔍 메뉴 이름 검색 (예: 자몽)">
     </div>
 
     <div class="tab-container">
-        <button class="tab-button active" onclick="openTab(event, 'tab-coffee')">베이직 커피</button>
-        <button class="tab-button" onclick="openTab(event, 'tab-signature')">시그니처 라떼</button>
-        <button class="tab-button" onclick="openTab(event, 'tab-ade')">에이드 & 티</button>
-        <button class="tab-button" onclick="openTab(event, 'tab-manual')">✅ 매장 매뉴얼</button>
+        <button class="tab-button active" onclick="openTab(event, 'tab-coffee')">
+            <span class="tab-icon">☕</span>
+            <span>커피</span>
+        </button>
+        <button class="tab-button" onclick="openTab(event, 'tab-signature')">
+            <span class="tab-icon">✨</span>
+            <span>시그니처</span>
+        </button>
+        <button class="tab-button" onclick="openTab(event, 'tab-ade')">
+            <span class="tab-icon">🍹</span>
+            <span>에이드/티</span>
+        </button>
+        <button class="tab-button" onclick="openTab(event, 'tab-manual')">
+            <span class="tab-icon">✅</span>
+            <span>체크리스트</span>
+        </button>
     </div>
 
     <div id="tab-coffee" class="tab-content active">
@@ -253,7 +312,7 @@
                 </div>
                 <div class="notice">
                     <strong>🗣️ 고객 안내 필수</strong><br>
-                    음료 제공 시 "2분 있다가 티백을 빼고 드세요" 라고 반드시 안내!
+                    음료 제공 시 "2분 있다가 티백을 빼고 드세요" 라고 반드시 안내해 주세요!
                 </div>
             </div>
         </div>
@@ -288,7 +347,6 @@
     </div>
 
     <script>
-        // 탭 기능
         function openTab(evt, tabName) {
             var i, tabcontent, tablinks;
             tabcontent = document.getElementsByClassName("tab-content");
@@ -301,21 +359,22 @@
                 tablinks[i].className = tablinks[i].className.replace(" active", "");
             }
             document.getElementById(tabName).style.display = "block";
-            document.getElementById(tabName).classList.add("active");
+            // 약간의 딜레이를 주어 애니메이션이 자연스럽게 적용되도록 함
+            setTimeout(() => {
+                document.getElementById(tabName).classList.add("active");
+            }, 10);
             evt.currentTarget.className += " active";
 
-            // 탭을 이동하면 검색창 초기화
+            // 탭 이동 시 검색창 초기화
             document.getElementById("searchInput").value = "";
             searchRecipe();
         }
 
-        // 검색 기능
         function searchRecipe() {
             var input, filter, cards, h3, i, txtValue;
             input = document.getElementById("searchInput");
             filter = input.value.toUpperCase();
             
-            // 현재 활성화된 탭에서만 검색 (매뉴얼 탭 제외)
             var activeTab = document.querySelector(".tab-content.active");
             if(activeTab.id === "tab-manual") return; 
 
