@@ -1,63 +1,335 @@
-# ☕ 카보드(Kaboard) 통합 매뉴얼 및 레시피
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>카보드(Kaboard) 레시피북</title>
+    <style>
+        :root {
+            --bg-color: #fcf9f5;
+            --text-color: #3e2723;
+            --card-bg: #ffffff;
+            --point-color: #8d6e63;
+            --hot-color: #d32f2f;
+            --ice-color: #1976d2;
+            --border-color: #e0e0e0;
+        }
+        body {
+            font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            line-height: 1.6;
+            padding: 20px;
+            margin: 0;
+            max-width: 1200px;
+            margin-left: auto;
+            margin-right: auto;
+        }
+        .header {
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .header h1 {
+            font-size: 2rem;
+            margin-bottom: 10px;
+            color: #4e342e;
+        }
+        /* 검색창 스타일 */
+        .search-container {
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .search-container input {
+            padding: 12px 20px;
+            width: 80%;
+            max-width: 400px;
+            border: 2px solid var(--point-color);
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+        }
+        /* 탭 버튼 스타일 */
+        .tab-container {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 30px;
+        }
+        .tab-button {
+            background-color: transparent;
+            border: 2px solid var(--point-color);
+            color: var(--point-color);
+            padding: 10px 20px;
+            border-radius: 25px;
+            cursor: pointer;
+            font-weight: bold;
+            transition: all 0.3s;
+        }
+        .tab-button.active, .tab-button:hover {
+            background-color: var(--point-color);
+            color: white;
+        }
+        /* 탭 콘텐츠 및 그리드 */
+        .tab-content {
+            display: none;
+            animation: fadeIn 0.5s;
+        }
+        .tab-content.active {
+            display: block;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        .recipe-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 20px;
+        }
+        .recipe-card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.05);
+            padding: 25px;
+        }
+        .recipe-card h3 {
+            margin-top: 0;
+            font-size: 1.25rem;
+            border-bottom: 1px dashed var(--border-color);
+            padding-bottom: 10px;
+        }
+        .tag {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-size: 0.8rem;
+            font-weight: bold;
+            color: white;
+            margin-bottom: 8px;
+        }
+        .tag.hot { background-color: var(--hot-color); }
+        .tag.ice { background-color: var(--ice-color); }
+        .recipe-step { margin-bottom: 15px; }
+        ul, ol { padding-left: 20px; margin: 10px 0; }
+        
+        /* 체크리스트 스타일 */
+        .checklist-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 10px;
+            font-size: 1.05rem;
+        }
+        .checklist-item input[type="checkbox"] {
+            margin-right: 10px;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+        }
+        .checklist-item input[type="checkbox"]:checked + span {
+            text-decoration: line-through;
+            color: #9e9e9e;
+        }
+        .notice {
+            background-color: #fff3e0;
+            padding: 15px;
+            border-radius: 8px;
+            border-left: 4px solid #ff9800;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
 
----
+    <div class="header">
+        <h1>☕ 카보드(Kaboard) 매뉴얼</h1>
+    </div>
 
-## ✅ 1. 일일 오픈/마감 체크리스트
-> 바쁜 시간대나 봉사자가 교대할 때 누락되는 일이 없도록 확인하는 용도입니다.
+    <div class="search-container">
+        <input type="text" id="searchInput" onkeyup="searchRecipe()" placeholder="🔍 메뉴 이름을 검색하세요 (예: 자몽)">
+    </div>
 
-**☀️ 오픈 (Open)**
-- [ ] 커피 머신 켜기 및 예열 확인
-- [ ] 제빙기 얼음 양 확인 및 전용 스쿱 비치
-- [ ] 시럽, 연유, 소스류 펌프 작동 및 잔량 확인
-- [ ] 쇼케이스 및 냉장고 온도 정상 작동 확인 (우유, 생크림 등)
-- [ ] 레몬청, 자몽청, 퓨레 등 냉장 재료 상태 확인
+    <div class="tab-container">
+        <button class="tab-button active" onclick="openTab(event, 'tab-coffee')">베이직 커피</button>
+        <button class="tab-button" onclick="openTab(event, 'tab-signature')">시그니처 라떼</button>
+        <button class="tab-button" onclick="openTab(event, 'tab-ade')">에이드 & 티</button>
+        <button class="tab-button" onclick="openTab(event, 'tab-manual')">✅ 매장 매뉴얼</button>
+    </div>
 
-**🌙 마감 (Close)**
-- [ ] 커피 머신 그룹헤드 청소 및 백플러싱 (마감 약품 사용)
-- [ ] 그라인더 주변 원두 가루 청소
-- [ ] 사용한 집기류(샷글라스, 스팀피처, 스푼 등) 세척 및 건조
-- [ ] 남은 우유, 생크림 등 냉장 보관 및 유통기한 라벨링 확인
-- [ ] 쓰레기통 비우기 및 주변 정리
+    <div id="tab-coffee" class="tab-content active">
+        <div class="recipe-grid">
+            <div class="recipe-card item-card">
+                <h3>아메리카노</h3>
+                <div class="recipe-step">
+                    <span class="tag hot">HOT</span>
+                    <div>에스프레소 40g + 뜨거운 물 200ml</div>
+                </div>
+                <div class="recipe-step">
+                    <span class="tag ice">ICED</span>
+                    <div>에스프레소 40g + 얼음 150g + 차가운 물 140ml</div>
+                </div>
+            </div>
+            <div class="recipe-card item-card">
+                <h3>카페라떼</h3>
+                <div class="recipe-step">
+                    <span class="tag hot">HOT</span>
+                    <div>에스프레소 40g + 우유 180ml</div>
+                </div>
+                <div class="recipe-step">
+                    <span class="tag ice">ICED</span>
+                    <div>에스프레소 40g + 얼음 150g + 우유 160ml</div>
+                </div>
+            </div>
+            <div class="recipe-card item-card">
+                <h3>바닐라라떼</h3>
+                <div class="recipe-step">
+                    <span class="tag hot">HOT</span>
+                    <div>에스프레소 40g + 바닐라시럽 30g + 연유 5g + 우유 180ml</div>
+                </div>
+                <div class="recipe-step">
+                    <span class="tag ice">ICED</span>
+                    <div>에스프레소 40g + 바닐라시럽 30g + 연유 5g + 얼음 150g + 우유 150ml</div>
+                </div>
+            </div>
+        </div>
+    </div>
 
----
+    <div id="tab-signature" class="tab-content">
+        <div class="recipe-grid">
+            <div class="recipe-card item-card">
+                <h3>엑설런트 라떼 <span class="tag ice" style="float: right;">ONLY ICE</span></h3>
+                <ol>
+                    <li><strong>베이스:</strong> 우유 110ml + 바닐라시럽 15g + 연유 5g</li>
+                    <li><strong>토핑:</strong> 엑설런트 아이스크림 1개 올리기</li>
+                    <li><strong>샷 추가:</strong> 아이스크림 위로 에스프레소 40g 붓기</li>
+                    <li><strong>마무리:</strong> 숟가락으로 밑부분 살짝 섞어주기</li>
+                </ol>
+            </div>
+            <div class="recipe-card item-card">
+                <h3>카보드 크림 라떼 <span class="tag ice" style="float: right;">ONLY ICE</span></h3>
+                <ol>
+                    <li><strong>베이스:</strong> 우유 110ml + 연유 10g + 버터스카치 섞기</li>
+                    <li><strong>크림:</strong> 생크림 25g + 연유 20g <strong>아주 강하게 휘핑</strong> 후, 액상 생크림 25g 붓고 잘 섞기</li>
+                    <li><strong>샷 추출:</strong> 원두 20g <strong>강하게 탬핑</strong> 후, 잔 돌려가며 15ml 짧고 진하게 추출하여 올리기</li>
+                </ol>
+            </div>
+        </div>
+    </div>
 
-## 💡 2. 빠른 계량 팁 (시럽 펌프 변환)
-> 저울 사용이 어려울 때를 대비한 기준표입니다. (사용하시는 펌프 규격에 따라 다를 수 있으니 한 번 테스트 후 수정해서 쓰세요!)
+    <div id="tab-ade" class="tab-content">
+        <div class="recipe-grid">
+            <div class="recipe-card item-card">
+                <h3>자몽 에이드 & 티</h3>
+                <div class="recipe-step">
+                    <span class="tag ice">아이스 자몽에이드</span>
+                    <ol>
+                        <li>잔에 얼음 100g + 자몽 농축액 40ml</li>
+                        <li>자몽 슬라이스 1개 잔 옆면에 깔기</li>
+                        <li>탄산수 1개 + 나머지 얼음 채우기</li>
+                        <li>맨 위에 자몽 퓨레 60g 올리기</li>
+                    </ol>
+                </div>
+                <div class="recipe-step">
+                    <span class="tag hot">핫 자몽티</span>
+                    <div>자몽 농축액 30ml + 자몽 퓨레 60g + 자몽 슬라이스 1개 + 뜨거운 물 220ml</div>
+                </div>
+            </div>
+            <div class="recipe-card item-card">
+                <h3>레몬 에이드 & 티</h3>
+                <div class="recipe-step">
+                    <span class="tag ice">아이스 레몬에이드</span>
+                    <div>레몬청 40g + 레몬즙 10ml + 시럽 10g + (탄산수/얼음 적당량)</div>
+                </div>
+                <div class="recipe-step">
+                    <span class="tag hot">핫 레몬티</span>
+                    <div>레몬청 30g + 레몬즙 10ml + 시럽 10g + (뜨거운 물 200~220ml)</div>
+                </div>
+            </div>
+            <div class="recipe-card item-card">
+                <h3>각종 차 (TEA)</h3>
+                <div class="recipe-step">
+                    <span class="tag hot">HOT</span> <span class="tag ice">ICE</span>
+                    <div>뜨거운 물 200ml + 티백 1개</div>
+                </div>
+                <div class="notice">
+                    <strong>🗣️ 고객 안내 필수</strong><br>
+                    음료 제공 시 "2분 있다가 티백을 빼고 드세요" 라고 반드시 안내!
+                </div>
+            </div>
+        </div>
+    </div>
 
-* **일반 시럽 1펌프** = 약 10g ~ 15g
-* **바닐라 시럽 30g** = 약 2~3펌프
-* **연유 5g / 10g** = 티스푼 1스푼 / 2스푼
-* **레몬즙 10ml** = 1펌프 (또는 전용 스퀴저 기준 1번)
+    <div id="tab-manual" class="tab-content">
+        <div class="recipe-grid">
+            <div class="recipe-card">
+                <h3>☀️ 오픈 체크리스트</h3>
+                <label class="checklist-item"><input type="checkbox"><span>커피 머신 켜기 및 예열 확인</span></label>
+                <label class="checklist-item"><input type="checkbox"><span>제빙기 얼음 양 및 스쿱 비치 확인</span></label>
+                <label class="checklist-item"><input type="checkbox"><span>시럽, 연유 등 펌프 작동 및 잔량 확인</span></label>
+                <label class="checklist-item"><input type="checkbox"><span>쇼케이스/냉장고 온도 정상 작동 확인</span></label>
+            </div>
+            <div class="recipe-card">
+                <h3>🌙 마감 체크리스트</h3>
+                <label class="checklist-item"><input type="checkbox"><span>커피 머신 청소 (백플러싱)</span></label>
+                <label class="checklist-item"><input type="checkbox"><span>그라인더 주변 원두 가루 청소</span></label>
+                <label class="checklist-item"><input type="checkbox"><span>집기류(샷글라스, 피처 등) 세척 건조</span></label>
+                <label class="checklist-item"><input type="checkbox"><span>우유/생크림 냉장 보관 및 쓰레기 비우기</span></label>
+            </div>
+            <div class="recipe-card">
+                <h3>💡 빠른 계량 팁</h3>
+                <ul>
+                    <li><strong>일반 시럽 1펌프:</strong> 약 10g ~ 15g</li>
+                    <li><strong>바닐라 시럽 30g:</strong> 약 2~3펌프</li>
+                    <li><strong>연유 5g:</strong> 티스푼 1스푼</li>
+                    <li><strong>레몬즙 10ml:</strong> 1펌프 (또는 1스퀴즈)</li>
+                </ul>
+            </div>
+        </div>
+    </div>
 
----
+    <script>
+        // 탭 기능
+        function openTab(evt, tabName) {
+            var i, tabcontent, tablinks;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].style.display = "none";
+                tabcontent[i].classList.remove("active");
+            }
+            tablinks = document.getElementsByClassName("tab-button");
+            for (i = 0; i < tablinks.length; i++) {
+                tablinks[i].className = tablinks[i].className.replace(" active", "");
+            }
+            document.getElementById(tabName).style.display = "block";
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.className += " active";
 
-## 📖 3. 카보드 레시피
+            // 탭을 이동하면 검색창 초기화
+            document.getElementById("searchInput").value = "";
+            searchRecipe();
+        }
 
-### ☕ 커피 (COFFEE)
-| 메뉴명 | 🔴 핫 (HOT) | 🔵 아이스 (ICED) |
-| :--- | :--- | :--- |
-| **아메리카노** | **에스프레소 40g** + 뜨거운 물 200ml | **에스프레소 40g** + 얼음 150g + 차가운 물 140ml |
-| **카페라떼** | **에스프레소 40g** + 우유 180ml | **에스프레소 40g** + 얼음 150g + 우유 160ml |
-| **바닐라라떼** | **에스프레소 40g** + 바닐라시럽 30g + 연유 5g + 우유 180ml | **에스프레소 40g** + 바닐라시럽 30g + 연유 5g + 얼음 150g + 우유 150ml |
+        // 검색 기능
+        function searchRecipe() {
+            var input, filter, cards, h3, i, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            
+            // 현재 활성화된 탭에서만 검색 (매뉴얼 탭 제외)
+            var activeTab = document.querySelector(".tab-content.active");
+            if(activeTab.id === "tab-manual") return; 
 
-### ✨ 시그니처 (SIGNATURE)
-| 메뉴명 | 제조 순서 및 방법 (ONLY ICE) |
-| :--- | :--- |
-| **엑설런트 라떼** | 1. **베이스:** 우유 110ml + 바닐라시럽 15g + 연유 5g<br>2. **토핑:** 엑설런트 아이스크림 1개 올리기<br>3. **샷 추가:** 아이스크림 위로 **에스프레소 40g** 붓기<br>4. **마무리:** 숟가락으로 밑부분 살짝 섞기 |
-| **카보드 크림 라떼** | 1. **베이스:** 우유 110ml + 연유 10g + 버터스카치 섞기<br>2. **크림:** 생크림 25g + 연유 20g (단단하게 휘핑) 👉 그 위에 액상 생크림 25g 붓고 잘 섞기<br>3. **샷 추출:** 원두 20g (강하게 탬핑) 👉 잔 돌려가며 15ml 짧고 진하게 추출하여 올리기 |
-
-### 🍹 에이드 & 티 (ADE & TEA)
-| 메뉴명 | 제조 순서 및 방법 |
-| :--- | :--- |
-| **아이스 자몽에이드** | 잔에 얼음 100g + 자몽 농축액 40ml 👉 자몽 슬라이스 1개 잔 옆면에 깔기 👉 탄산수 1개 + 나머지 얼음 채우기 👉 맨 위에 자몽 퓨레 60g 올리기 |
-| **핫 자몽에이드(티)**| 자몽 농축액 30ml + 자몽 퓨레 60g + 자몽 슬라이스 1개 + 뜨거운 물 220ml |
-| **아이스 레몬에이드** | 레몬청 40g + 레몬즙 10ml + 시럽 10g + (탄산수 / 얼음 적당량) |
-| **핫 레몬에이드(티)**| 레몬청 30g + 레몬즙 10ml + 시럽 10g + (뜨거운 물 200~220ml) |
-| **각종 차 (TEA)** | 뜨거운 물 200ml + 티백 1개<br>🗣️ **"2분 있다가 티백을 빼고 드세요"** 안내 필수! |
-
----
-
-## ⚠️ 4. 고객 응대 및 알레르기 주의사항
-* **유제품 알레르기/유당불내증:** 모든 라떼류 및 크림 라떼에는 우유 및 생크림이 들어갑니다. (필요시 "연하게" 또는 "우유 적게" 등 고객 요청사항 확인)
-* **얼음 양 조절 요청 시:** 얼음을 적게 넣을 경우 음료량이 적어 보일 수 있음을 미리 안내합니다.
-* **디카페인 여부:** 현재 메뉴판 기준 디카페인 원두 변경 가능 여부를 숙지해 둡니다.
+            cards = activeTab.getElementsByClassName("item-card");
+            for (i = 0; i < cards.length; i++) {
+                h3 = cards[i].getElementsByTagName("h3")[0];
+                txtValue = h3.textContent || h3.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    cards[i].style.display = "";
+                } else {
+                    cards[i].style.display = "none";
+                }
+            }
+        }
+    </script>
+</body>
+</html>
